@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Denis Korzun",
+  "scripts": {
+    "buid:dev": "env NODE_ENV=development webpack --config webpack.config.js",
+    "buid:prod": "env NODE_ENV=production webpack --config webpack.config.js",
+    "start": "env NODE_ENV=development webpack-dev-server"
+  },
   "license": "MIT",
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "html-webpack-plugin": "4.5.0",
     "ts-loader": "8.2.0",
     "typescript": "4.0.3",
     "webpack": "4.44.2",
-    "webpack-cli": "3.3.12"
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
   }
 }
