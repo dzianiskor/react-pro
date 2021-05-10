@@ -13,7 +13,26 @@ module.exports = {
     filename: "main.js",
   },
   module: {
-    rules: [{ test: /\.[tj]sx?$/, use: ["ts-loader"] }],
+    rules: [
+      { test: /\.[tj]sx?$/, use: ["ts-loader"] },
+      {
+        test: /\.(s*)css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                mode: "local",
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+                auto: /\.modules\.\w+$/i,
+              },
+            },
+          },
+          "sass-loader",
+        ],
+      },
+    ],
   },
   plugins: [
     new HTMLWebpackPlugins({
