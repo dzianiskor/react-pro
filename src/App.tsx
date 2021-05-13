@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./App.modules.scss";
+import s from "./App.module.scss";
 import "./custom.css";
 import cn from "classnames";
 
