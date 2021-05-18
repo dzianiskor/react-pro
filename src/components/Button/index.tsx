@@ -10,13 +10,13 @@ export enum SizeButton {
 
 interface ButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  fullWidth?: string;
+  isFullWidth?: string;
   color?: string;
   backgroundColor?: string;
   size?: SizeButton;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, fullWidth, color, backgroundColor, size }) => {
+const Button: React.FC<ButtonProps> = ({ children, onClick, isFullWidth, color, backgroundColor, size }) => {
   return (
     <button
       type="button"
@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({ children, onClick, fullWidth, color, ba
       style={{
         color: color && color,
         backgroundColor: backgroundColor && backgroundColor,
-        width: fullWidth && '100%',
+        width: isFullWidth && '100%',
       }}>
       {children}
     </button>
