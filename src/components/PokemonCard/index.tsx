@@ -1,34 +1,43 @@
 import React from 'react';
+import cn from 'classnames';
 import Heading from '../Heading';
-
 import s from './PokemonCard.module.scss';
 
-const PokemonCard = () => {
+interface IPokemonCard {
+  name: string;
+  attack: number;
+  defense: number;
+  types: string[];
+  img: string;
+}
+
+const PokemonCard: React.FC<IPokemonCard> = ({ name, attack, defense, types, img }) => {
   return (
     <div className={s.root}>
       <div className={s.infoWrap}>
         <Heading size="23px" className={s.titleName}>
-          Charmander
+          {name}
         </Heading>
         <div className={s.statWrap}>
           <div className={s.statItem}>
-            <div className={s.statValue}>52</div>
+            <div className={s.statValue}>{attack}</div>
             Attack
           </div>
           <div className={s.statItem}>
-            <div className={s.statValue}>43</div>
+            <div className={s.statValue}>{defense}</div>
             Defense
           </div>
         </div>
         <div className={s.labelWrap}>
-          <span className={s.label}>Fire</span>
+          {types.map((type, index) => (
+            <span key={type + name} className={cn(s.label, s[type as keyof typeof s])}>
+              {type}
+            </span>
+          ))}
         </div>
       </div>
-      <div className={s.pictureWrap}>
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
-          alt="Charmander"
-        />
+      <div className={cn(s.pictureWrap, s[types[0] as keyof typeof s])}>
+        <img src={img} alt={name} />
       </div>
     </div>
   );
