@@ -3,7 +3,29 @@ import PokemonCard from '../../components/PokemonCard';
 import s from './Pokedex.module.scss';
 import Header from '../../components/Header';
 
-const pokemons = [
+interface IPokemon {
+  name_clean?: string;
+  abilities?: string[];
+  stats: {
+    hp: number;
+    attack: number;
+    defense: number;
+    'special-attack': number;
+    'special-defense': number;
+    speed?: number;
+  };
+  types: string[];
+  img: string;
+  name: string;
+  base_experience?: number;
+  height?: number;
+  id: number;
+  is_default?: boolean;
+  order?: number;
+  weight?: number;
+}
+
+const pokemons: IPokemon[] = [
   {
     name_clean: 'bulbasaur',
     abilities: ['overgrow', 'chlorophyll'],
@@ -216,7 +238,7 @@ const pokemons = [
   },
 ];
 
-const PokedexPage = () => {
+const PokedexPage: React.FC = () => {
   return (
     <div className={s.root}>
       <Header />
