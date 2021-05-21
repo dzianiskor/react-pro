@@ -3,6 +3,7 @@ import React from 'react';
 interface IHeading {
   type?: string;
   size?: string;
+  className?: string;
 }
 
 const headingTypes = new Map([
@@ -15,16 +16,20 @@ const headingTypes = new Map([
   ['p', '16px'],
 ]);
 
-const Heading: React.FC<IHeading> = ({ children, type, size }) => {
-  let result = <div>{children}</div>;
+const Heading: React.FC<IHeading> = ({ children, type, size, className }) => {
+  let result = <div className={className}>{children}</div>;
   if (size) {
-    result = <div style={{ fontSize: size }}>{children}</div>;
+    result = (
+      <div className={className} style={{ fontSize: size }}>
+        {children}
+      </div>
+    );
   }
   if (type || size) {
     headingTypes.forEach((value, key) => {
       if (size === value || key === type) {
         const CustomTag = `${key}` as keyof JSX.IntrinsicElements;
-        result = <CustomTag>{children}</CustomTag>;
+        result = <CustomTag className={className}>{children}</CustomTag>;
       }
     });
   }
