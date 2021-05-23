@@ -3,9 +3,19 @@ import { useRoutes } from 'hookrouter';
 import routes from './routes';
 import NotFoundPage from './pages/NotFoundPage';
 import './index.css';
+import Header from './components/Header';
 
 const App = () => {
-  return useRoutes(routes) || <NotFoundPage />;
+  const match = useRoutes(routes);
+
+  return match ? (
+    <>
+      <Header />
+      {match}
+    </>
+  ) : (
+    <NotFoundPage />
+  );
 };
 
 export default App;
