@@ -58,14 +58,15 @@ const PokedexPage: React.FC = () => {
       </div>
       <div className={s.cardWrapper}>
         {data?.pokemons.map((pokemon: IPokemon) => (
-          <PokemonCard
-            name={pokemon.name}
-            attack={pokemon.stats.attack}
-            defense={pokemon.stats.defense}
-            types={pokemon.types}
-            img={pokemon.img}
-            key={pokemon.id}
-          />
+            <PokemonCard
+                id={pokemon.id}
+                name={pokemon.name}
+                attack={pokemon.stats.attack}
+                defense={pokemon.stats.defense}
+                types={pokemon.types}
+                img={pokemon.img}
+                key={pokemon.id}
+            />
         ))}
       </div>
     </div>
