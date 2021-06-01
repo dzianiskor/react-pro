@@ -11,10 +11,10 @@ export const config = {
           pathname: '/api/v1/pokemons',
         },
       },
-      getPokemonById: {
+      getPokemon: {
         method: 'GET',
         uri: {
-          pathname: '/api/v1/pokemon',
+          pathname: '/api/v1/pokemon/{id}',
         },
       },
     },

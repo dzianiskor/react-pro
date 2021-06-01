@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import PokemonCard from '../../components/PokemonCard';
 import s from './Pokedex.module.scss';
 import useData from '../../hook/getData';
-import {IPokemonData, IPokemon} from "../../interface/pokemons";
-import useDebounce from "../../hook/useDebounce";
+import { IPokemonData, IPokemon } from '../../interface/pokemons';
+import useDebounce from '../../hook/useDebounce';
+import { navigate } from 'hookrouter';
+import { LinkEnum } from '../../routes';
 
 interface IQuery {
-    name?: string
+  name?: string;
 }
 
 const PokedexPage: React.FC = () => {
@@ -30,6 +32,10 @@ const PokedexPage: React.FC = () => {
   if (isError) {
     return <div>Something went wrong!</div>;
   }
+
+  const handleNavigate = (id: string | number): void => {
+    navigate(`${LinkEnum.POKEDEX}/${id}`);
+  };
 
   return (
     <div className={s.root}>
@@ -58,15 +64,17 @@ const PokedexPage: React.FC = () => {
       </div>
       <div className={s.cardWrapper}>
         {data?.pokemons.map((pokemon: IPokemon) => (
+          <span key={pokemon.id} onClick={() => handleNavigate(pokemon.id)}>
             <PokemonCard
-                id={pokemon.id}
-                name={pokemon.name}
-                attack={pokemon.stats.attack}
-                defense={pokemon.stats.defense}
-                types={pokemon.types}
-                img={pokemon.img}
-                key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.name}
+              attack={pokemon.stats.attack}
+              defense={pokemon.stats.defense}
+              types={pokemon.types}
+              img={pokemon.img}
+              key={pokemon.id}
             />
+          </span>
         ))}
       </div>
     </div>
