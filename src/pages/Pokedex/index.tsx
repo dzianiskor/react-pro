@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PokemonCard from '../../components/PokemonCard';
 import s from './Pokedex.module.scss';
 import useData from '../../hook/getData';
@@ -6,12 +6,17 @@ import { IPokemonData, IPokemon } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
 import { navigate } from 'hookrouter';
 import { LinkEnum } from '../../routes';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPokemonsTypes, getPokemonsTypesLoading, getTypesAction } from '../../store/pokemon';
 
 interface IQuery {
   name?: string;
 }
 
 const PokedexPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const types = useSelector(getPokemonsTypes);
+  const isTypesLoading = useSelector(getPokemonsTypesLoading);
   const [searchValue, setSearchValue] = useState('');
   const [query, setQuery] = useState<IQuery>({});
 
@@ -24,6 +29,10 @@ const PokedexPage: React.FC = () => {
   };
   const debouncedValue = useDebounce(searchValue, 500);
   const { data, isLoading, isError } = useData<IPokemonData>('getPokemons', query, [debouncedValue]);
+
+  useEffect(() => {
+    dispatch(getTypesAction());
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -62,6 +71,7 @@ const PokedexPage: React.FC = () => {
           Experiencia
         </button>
       </div>
+      <div>{isTypesLoading ? 'Loading...' : types?.map((item) => <div style={{textAlign:'center'}} key={item}>{item}</div>)}</div>
       <div className={s.cardWrapper}>
         {data?.pokemons.map((pokemon: IPokemon) => (
           <span key={pokemon.id} onClick={() => handleNavigate(pokemon.id)}>
