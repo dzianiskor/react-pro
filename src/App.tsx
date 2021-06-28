@@ -2,7 +2,7 @@ import React from 'react';
 import { useRoutes } from 'hookrouter';
 import routes from './routes';
 import NotFoundPage from './pages/NotFoundPage';
-import './index.css';
+import './index.module.scss';
 import Header from './components/Header';
 
 const App = () => {

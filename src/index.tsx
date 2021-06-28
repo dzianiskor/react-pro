@@ -8,9 +8,11 @@ import configStore from './configStore';
 
 const store = configStore({});
 
-ReactDom.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root'),
-);
+window.addEventListener('load', ()=> {
+    ReactDom.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root'),
+    );
+})

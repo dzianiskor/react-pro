@@ -7,6 +7,8 @@ import ReactDom from 'react-dom/server';
 import {setPath} from "hookrouter";
 import App from "../App";
 
+const IMG = /\.(jpg|jpeg|gif|png)(\?v=\d+\.\d+\.\d+)?$/;
+
 const init = async () => {
 
     const server = Hapi.server({
@@ -18,6 +20,12 @@ const init = async () => {
 
     server.route({
         method: 'GET',
+        path: '/main.css',
+        handler: (request, h) => h.file(path.join(process.cwd(), 'dist', 'main.css'))
+    })
+
+    server.route({
+        method: 'GET',
         path: '/main.js',
         handler: (request, h) => h.file(path.join(process.cwd(), 'dist', 'main.js'))
     })
@@ -26,6 +34,9 @@ const init = async () => {
         method: 'GET',
         path: '/{any*}',
         handler: (request, h) => {
+            if (IMG.test(request.path)) {
+                return h.file(path.join(process.cwd(), 'dist', request.path));
+            }
             setPath(request.path);
             const pathIndexHTML = path.join(process.cwd(), 'dist', 'index.html')
             const template = handlebars.compile(fs.readFileSync(pathIndexHTML, 'utf8'));
